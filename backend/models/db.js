@@ -6,7 +6,12 @@ import User from "./User.js";
 dotenv.config()
 
 const mongoConnect = () => {
-    mongoose.connect('mongodb://localhost:27017/heliverse_assignment').then(() => { console.log("Connected to database successfully") })
+    try {
+        
+        mongoose.connect(process.env.MONGO_URI).then(() => { console.log("Connected to database successfully") })
+    } catch (error) {
+        console.log(error);
+    }
     const importUsers=async()=> {
         try {
             // Read the JSON file

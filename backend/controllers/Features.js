@@ -36,8 +36,8 @@ export const filterByDomain = async (req, res) => {
 }
 export const filterByGender = async (req, res) => {
     try {
-        const page = req.params.page;
-        const users = await User.find().skip((page - 1) * 20).limit(Number(20))
+        const gender = req.params.gender;
+        const users = await User.find({gender})
         return res.status(200).json({
             msg: "success",
             data: users,

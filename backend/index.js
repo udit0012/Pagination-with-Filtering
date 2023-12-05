@@ -1,7 +1,6 @@
 import express from 'express'
 import cors from 'cors'
 import users from "./routers/User.js"
-import features from "./routers/Features.js"
 import mongoConnect from './models/db.js'
 
 const app = express()
