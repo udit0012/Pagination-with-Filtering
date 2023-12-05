@@ -20,7 +20,7 @@ export const fetchUsers = (pageNumber,filters) => async (dispatch) => {
             filters:JSON.stringify(filters)
         })
         // Replace the API endpoint with your actual backend endpoint
-        const response = await fetch(`http://localhost:8080/api/users?${queryParams.toString()}`);
+        const response = await fetch(`https://pagination-with-filtering-backend.onrender.com/api/users?${queryParams.toString()}`);
         const data = await response.json();
 
         dispatch(fetchUsersSuccess(data));
@@ -48,7 +48,7 @@ export const fetchValues = () => async (dispatch) => {
         dispatch(fetchValuesRequest());
 
         // Replace the API endpoint with your actual backend endpoint
-        const response = await fetch(`http://localhost:8080/api/uniqueValues`);
+        const response = await fetch(`https://pagination-with-filtering-backend.onrender.com/api/uniqueValues`);
         const data = await response.json();
         console.log(data);
         dispatch(fetchValuesSuccess(data));

@@ -19,3 +19,28 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.b1{
+  animation-name: loading;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+.b2{
+  animation-name: loading;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-delay: 1s;
+}
+@keyframes loading {
+  0%{
+    transform: translateX(0%);
+  }
+  25%{
+    transform: translateX(100%);
+  }
+  50%{
+    transform: translateX(100%) translateY(100%);
+  }
+  75%{
+    transform: translateY(100%);
+  }
+}

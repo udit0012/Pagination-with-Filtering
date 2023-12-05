@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchUsers, fetchValues } from '../ReduxStore/Actions'
 import Pagination from './Pagination'
+import Loading from './Loading'
 
 const Dashboard = () => {
     const dispatch = useDispatch()
@@ -32,7 +33,6 @@ const Dashboard = () => {
             setFilters({ ...filters, gender: [...filters.gender, option] })
         }
     }
-    console.log(users);
     return (
         <div className='p-4 xl:p-8'>
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -49,57 +49,61 @@ const Dashboard = () => {
                 </div>
                 <div className="w-full grid grid-cols-4 lg:gap-x-4 justify-center items-start">
                     <div className={`${filterOpen ? "col-span-0 lg:col-span-3" : "col-span-4"} duration-200`}>
-                        <div className={`${filterOpen ? "hidden lg:block" : "block"} max-h-[74vh] lg:max-h-[72vh] xl:max-h-[70vh] overflow-y-scroll w-full scrollbar-none`}>
-                            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                    <tr className='border-b-10 border-gray-900'>
-                                        <th scope="col" className="px-3 lg:px-6 py-6 rounded-s-lg">
-                                            User id
-                                        </th>
-                                        <th scope="col" className="px-3 lg:px-6 py-3">
-                                            Username
-                                        </th>
-                                        <th scope="col" className="px-3 lg:px-6 py-3">
-                                            Domain
-                                        </th>
-                                        <th scope="col" className="px-3 lg:px-6 py-3">
-                                            Gender
-                                        </th>
-                                        <th scope="col" className="px-3 lg:px-6 py-3 rounded-e-lg">
-                                            Available
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody className='bg-transparent'>
-                                    {users?.data?.map((user) => {
-                                        return <tr key={user._id} className="border-y-8 border-gray-900 bg-gray-800 hover:bg-gray-600">
-                                            <th scope="row" className="px-6 py-6 rounded-s-lg font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {user.id}
+                        {loading?<div className={`${filterOpen?"hidden lg:block":"block"}`}>
+                            <Loading />
+                        </div>:<>
+                            <div className={`${filterOpen ? "hidden lg:block" : "block"} max-h-[74vh] lg:max-h-[72vh] xl:max-h-[70vh] overflow-y-scroll w-full scrollbar-none`}>
+                                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                        <tr className='border-b-10 border-gray-900'>
+                                            <th scope="col" className="px-3 lg:px-6 py-6 rounded-s-lg">
+                                                User id
                                             </th>
-                                            <td className="px-6 py-4">
-                                                {user.first_name} {user.last_name}
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                {user.domain}
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                {user.gender}
-                                            </td>
-                                            <td className="px-6 py-4 rounded-e-lg">
-                                                <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                            </td>
+                                            <th scope="col" className="px-3 lg:px-6 py-3">
+                                                Username
+                                            </th>
+                                            <th scope="col" className="px-3 lg:px-6 py-3">
+                                                Domain
+                                            </th>
+                                            <th scope="col" className="px-3 lg:px-6 py-3">
+                                                Gender
+                                            </th>
+                                            <th scope="col" className="px-3 lg:px-6 py-3 rounded-e-lg">
+                                                Available
+                                            </th>
                                         </tr>
-                                    })}
-                                </tbody>
-                            </table>
-                        </div>
-                        <div className={`${filterOpen?"hidden lg:block":"block"}`}>
-                            <Pagination
-                                page={page}
-                                setPage={setPage}
-                                totalEntries={users.totalUsers}
-                            />
-                        </div>
+                                    </thead>
+                                    <tbody className='bg-transparent'>
+                                        {users?.data?.map((user) => {
+                                            return <tr key={user._id} className="border-y-8 border-gray-900 bg-gray-800 hover:bg-gray-600">
+                                                <th scope="row" className="px-6 py-6 rounded-s-lg font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {user.id}
+                                                </th>
+                                                <td className="px-6 py-4">
+                                                    {user.first_name} {user.last_name}
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    {user.domain}
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    {user.gender}
+                                                </td>
+                                                <td className="px-6 py-4 rounded-e-lg">
+                                                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                                </td>
+                                            </tr>
+                                        })}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className={`${filterOpen ? "hidden lg:block" : "block"}`}>
+                                <Pagination
+                                    page={page}
+                                    setPage={setPage}
+                                    totalEntries={users.totalUsers}
+                                />
+                            </div>
+                        </>}
                     </div>
                     <div className={`${filterOpen ? "col-span-4 lg:col-span-1" : "col-span-0"} rounded-lg duration-200 bg-gray-800  text-gray-400`}>
                         <div className={`${filterOpen ? "block m-3" : "hidden"}`}>

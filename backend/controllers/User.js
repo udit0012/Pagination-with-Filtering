@@ -17,7 +17,7 @@ export const getUsers = async (req, res) => {
         const users = await User.find(filter).skip((page - 1) * pageSize).limit(Number(pageSize))
         const totalUsers = await User.countDocuments(filter)
         // console.log(users);
-        console.log(filters);
+        // console.log(filters);
         return res.status(200).json({
             msg: "success",
             data: users,
