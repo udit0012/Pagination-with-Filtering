@@ -10,7 +10,7 @@ function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <div className="bg-white dark:bg-gray-900 min-h-[100vh]">
+        <div className="bg-gray-900 min-h-[100vh]">
           <Navbar />
           <Routes>
             <Route path='/' element={<Dashboard />} />
